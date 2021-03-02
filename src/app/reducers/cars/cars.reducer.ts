@@ -8,7 +8,17 @@ export interface State {
 }
 
 export const initialState: State = {
-  cars: []
+  cars: [
+    {brand: 'Skoda', type: 'Fabia'},
+    {brand: 'Skoda', type: 'Octavia'},
+    {brand: 'Skoda', type: 'Karoq'},
+    {brand: 'Skoda', type: 'Kodiak'},
+    {brand: 'Skoda', type: 'Superb'},
+    {brand: 'VW', type: 'Polo'},
+    {brand: 'VW', type: 'Golf'},
+    {brand: 'VW', type: 'Passat'},
+    {brand: 'VW', type: 'Tiguan'},
+  ]
 };
 
 
