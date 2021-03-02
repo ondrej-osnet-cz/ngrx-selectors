@@ -1,7 +1,7 @@
 <div>
-  <div>Skoda</div>
-  <div>VW</div>
+  <div (click)="changeBrand('skoda')">Skoda</div>
+  <div (click)="changeBrand('vw')">VW</div>
 </div>
 <ul>
-  <li></li>
+  <li *ngFor="let car of cars$ | async">{{car.brand}} {{car.type}}</li>
 </ul>

@@ -1,7 +1,9 @@
 import { Component } from '@angular/core';
 import { Store, createSelector } from '@ngrx/store';
-import { State } from './reducers/cars/cars.reducer';
-import { selectCarsState } from './reducers/cars/cars.selectors';
+import { Car } from './reducers/cars/cars.reducer';
+import * as fromCars from './reducers/cars/cars.selectors';
+import { tap } from 'rxjs/operators';
+import { State } from './reducers';
 
 @Component({
   selector: 'app-root',
@@ -10,15 +12,22 @@ import { selectCarsState } from './reducers/cars/cars.selectors';
 })
 export class AppComponent {
 
-  constructor(private store: Store) {}
+  cars$ = this.store.select(fromCars.selectCars).pipe(
+    tap((cars) => console.log('cars', cars))
+  );
 
-  // tslint:disable-next-line: typedef
+  constructor(private store: Store<State>) {}
+
+  changeBrand(brand: string) {
+    this.cars$ = this.store.select(this.createBrandSpecificSelector(), { brand });
+  }
+
   private createBrandSpecificSelector() {
     return createSelector(
-      selectCarsState,
-      (state: State, props: { brand: string}) => {
+      fromCars.selectCars,
+      (state: Car[], props: { brand: string}) => {
         console.log('calculate selectCarsSpecificBrand');
-        return state.cars.filter(c => c.brand === props.brand);
+        return state.filter(c => c.brand.toLowerCase() === props.brand.toLowerCase());
       });
   }
 }

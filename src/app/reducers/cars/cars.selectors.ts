@@ -1,16 +1,15 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { State } from './cars.reducer';
+import { State } from '../index';
 
 
-const carsState = (state: State) => state;
+const carsState = (state: State) => state.cars;
 
 export const selectCarsState = createSelector(carsState, (state) => {
-  console.log('calculate selectCarsState');
+  console.log('calculate selectCarsState', state);
   return state;
 });
 
-
-export const selectCarsSpecificBrand = createSelector(selectCarsState, (state: State, props: { brand: string}) => {
-  console.log('calculate selectCarsSpecificBrand');
-  return state.cars.filter(c => c.brand === props.brand);
+export const selectCars = createSelector(selectCarsState, (state) => {
+  console.log('calculate selectCars', state.cars);
+  return state.cars;
 });
